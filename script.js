@@ -1,184 +1,99 @@
-// verb
-window.getMultiple();
-function getMultiple() {
-  console.log(a); // undefined
-  var a = 25;
-  console.log(a);
-  console.log("multiple", a * 5);
-}
+// scope chaining
 
-// function with return keyword
-
-function getName() {
-  return "Sanjay";
-}
-var func_name = getName();
-var name = "Sanjay";
-
-console.log(func_name);
-console.log(name);
-
-// function with arguments and parameters
-function doCalculation(num1, num2) {
-  // num1 and num2 are parameters
-  console.log(num1 * num2);
-}
-//arguments
-doCalculation(5, 10);
-
-// calculator function
-// mul, add and sub
-
-function calculator(operation, num1, num2) {
-  if (operation == "sum") {
-    return num1 + num2;
-  } else if (operation == "sub") {
-    return num1 - num2;
-  } else if (operation == "mul") {
-    return num1 * num2;
-  } else {
-    return "please given valid arguments";
+if (true) {
+  let outScope = 25;
+  // console.log(inscope); // not accesible
+  if (true) {
+    let inscope = 30;
+    console.log(outScope);
+    console.log(inscope);
   }
 }
+//{
 
-const sum_func = calculator("sum", 10, 15); // 25
-const mul_func = calculator("mul", 10, 5); // 50
-const sub_func = calculator("sub", 10, 5); // 5
-const not_fucn = calculator();
-console.log(sum_func);
-console.log(mul_func);
-console.log(sub_func);
-console.log(not_fucn);
-
-// function declaration
-function printFunction() {
-  console.log("i print");
+let value = 20;
+function valueByTwo() {
+  console.log(value * 2);
 }
-printFunction();
-// function statement or expression
-const aFucn = function (name) {
-  console.log("un named function", name);
+valueByTwo();
+
+//}
+// shadow property scoping
+if (true) {
+  const shadow = "sanjay";
+  if (true) {
+    const shadow = "Ashok";
+    console.log("Inner Shadow", shadow);
+  }
+  console.log("Outer Shadow", shadow);
+}
+
+// spread operators
+
+let Batch53Stud = ["Ashish", "Aswin", "Jinu", "Subash", "Cholan"];
+let Batch54Stud = ["Sanjay", "pradeep", "subbu", "ashik ", "arul"];
+console.log(Batch53Stud);
+console.log(Batch54Stud);
+let allStudents = ["prashanth", ...Batch53Stud, ...Batch54Stud];
+console.log(allStudents);
+
+// rest operator
+function takeArguments(arg1, arg2, ...restvalues) {
+  console.log(arg1);
+  console.log(arg2);
+  console.log(restvalues);
+}
+takeArguments(2, 5, 7, 8, 9, 10, 15);
+
+// array & object destructure
+const studentsArr = ["Ashish", "Aswin", "Jinu", "Subash", "Cholan"];
+console.log(studentsArr);
+
+const [student1, student2, , ...restofStudents] = studentsArr;
+console.log(student1);
+console.log(student2);
+console.log(restofStudents);
+
+// destucturing nested array
+const nestedArray = [1, 2, 3, [5, 10], 4, 6];
+const [, , , [value5, value10]] = nestedArray;
+console.log(value5);
+console.log(value10);
+
+const studObj = {
+  firstName: "sanjay",
+  lastName: "guvi",
+  designation: "FSD-Mentor",
+  type: "online",
+  companyAddr: {
+    state: "TamilNadu",
+    country: "India",
+  },
+};
+console.log(studObj.companyAddr.state);
+console.log(studObj.firstName);
+
+const {
+  designation,
+  lastName,
+  firstName: mentorName,
+  companyAddr: { state, country: nationalName },
+} = studObj;
+
+console.log(designation);
+console.log(lastName);
+console.log(mentorName);
+console.log(state);
+console.log(nationalName);
+// Object property shorthand,
+
+const studName = "sanjay";
+const studage = 26;
+
+const sampleStudentObj = {
+  // short hand property
+  studName,
+  studAge: studage,
 };
 
-//anonymous function
-// function () {
-//     console.log("un named function");
-//   };
-
-aFucn("sanjay");
-
-// arrow function
-
-let arrFucn = (num1, num2) => num1 * num2;
-
-const arrName = arrFucn(5, 10);
-console.log(arrName);
-
-// IIFE
-// Immeditaly invoked function excecution
-(function getValue() {
-  console.log("value of IIFE");
-})();
-
-var axg = 87;
-
-// first class functions
-function returnMyname(name) {
-  return name;
-}
-const myName = returnMyname("sanjay");
-console.log(myName);
-
-//executable function
-function mybatch(batch) {
-  return batch;
-}
-
-function TellMyBatch(ins, fn) {
-  console.log("Hi I'm from" + " " + ins + " " + fn(ins));
-}
-TellMyBatch("Guvi", mybatch);
-
-// template literals
-function greetMe(name, ins) {
-  console.log("Hi " + name + " welcome " + ins);
-  console.log(`Hi ${name} welcome ${ins}`);
-}
-greetMe("praveen", "guvi");
-
-// pure functions
-// any funvtion that gives same output for same input
-function addTwoNumbers(num1, num2) {
-  console.log(num1 + num2);
-}
-
-addTwoNumbers(5, 10);
-addTwoNumbers(5, 10);
-addTwoNumbers(5, 10);
-
-// higher order function
-// function returns another function
-// 25*5 = result
-function multiply(factor) {
-  return function (number) {
-    // 5*2
-    return number * factor;
-  };
-}
-
-const result = multiply(2);
-console.log(result(5));
-
-// i want to check an array of data is divisble by a
-// given number
-
-// number of value thar are divisble by the number
-function payload(arr) {
-  return function (div) {
-    let count = 0;
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] % div == 0) {
-        count += 1;
-      }
-    }
-    return count;
-  };
-}
-
-// const isDivisible = payload([2, 4, 5, 7, 8, 15]);
-// console.log(isDivisible(2));
-// console.log(isDivisible(3));
-// console.log(isDivisible(5));
-
-// curring functional call
-console.log("using curring", payload([2, 4, 5, 7, 8, 15])(5));
-function basicCurriyngAdd(a) {
-  return function (b) {
-    return function (c) {
-      return a + b + c;
-    };
-  };
-}
-
-console.log("Basic curring", basicCurriyngAdd(4)(5)(9));
-// if (!b) {
-//     return a;
-//   }
-//   return addValues(a + b);
-
-function addValues(a) {
-  //a = 10
-  // a= 20
-  return function (b) {
-    //b = 10
-    //b = null
-    if (!b) {
-      return a;
-    }
-    //a+b = 20
-    // addValues(20)
-    return addValues(a + b);
-  };
-}
-//console.log(addValues(2)(5)(7)());
-console.log(addValues(10)(10)());
+console.log(sampleStudentObj);
